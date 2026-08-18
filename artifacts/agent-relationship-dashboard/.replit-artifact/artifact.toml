@@ -1,0 +1,28 @@
+kind = "data-app"
+previewPath = "/"
+title = "Agent Relationship Dashboard"
+description = "A focused relationship command center for education agent partnerships, potential student referrals, follow-up priorities, and pipeline health based on the uploaded WhatsApp review."
+version = "1.0.0"
+id = "artifacts/agent-relationship-dashboard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18650
+
+[services.development]
+run = "pnpm --filter @workspace/agent-relationship-dashboard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/agent-relationship-dashboard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/agent-relationship-dashboard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18650"
+BASE_PATH = "/"

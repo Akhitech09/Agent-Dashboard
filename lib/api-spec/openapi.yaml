@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: relationships
+    description: Education agent relationship intelligence
 paths:
   /healthz:
     get:
@@ -24,6 +26,46 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /relationship-dashboard/agents:
+    get:
+      operationId: getRelationshipAgents
+      tags: [relationships]
+      summary: List tracked agent relationships
+      responses:
+        "200":
+          description: Tracked relationships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RelationshipAgent"
+  /relationship-dashboard/summary:
+    get:
+      operationId: getRelationshipSummary
+      tags: [relationships]
+      summary: Get relationship dashboard summary
+      responses:
+        "200":
+          description: Dashboard summary and grouped counts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RelationshipSummary"
+  /relationship-dashboard/activity:
+    get:
+      operationId: getRelationshipActivity
+      tags: [relationships]
+      summary: Get recent relationship activity
+      responses:
+        "200":
+          description: Recent relationship activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RelationshipActivity"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +75,124 @@ components:
           type: string
       required:
         - status
+    RelationshipAgent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        groupName:
+          type: string
+        segment:
+          type: string
+          enum: [active-referral, existing-business, inactive, prospective, internal, long-tail]
+        stage:
+          type: string
+        priority:
+          type: string
+          enum: [high, medium, low]
+        studentName:
+          type: string
+        studentContext:
+          type: string
+        summary:
+          type: string
+        dateRange:
+          type: string
+        lastActivityDate:
+          type: string
+        nextAction:
+          type: string
+        outcome:
+          type: string
+        relationshipHealth:
+          type: string
+          enum: [warm, active, at-risk, dormant, internal]
+      required:
+        - id
+        - name
+        - groupName
+        - segment
+        - stage
+        - priority
+        - studentName
+        - studentContext
+        - summary
+        - dateRange
+        - lastActivityDate
+        - nextAction
+        - outcome
+        - relationshipHealth
+    RelationshipSummary:
+      type: object
+      properties:
+        totalTracked:
+          type: number
+        activeReferralCount:
+          type: number
+        openFollowUps:
+          type: number
+        warmRelationships:
+          type: number
+        recentReferralCount:
+          type: number
+        closedReferralCount:
+          type: number
+        segmentBreakdown:
+          type: array
+          items:
+            $ref: "#/components/schemas/CountBreakdown"
+        stageBreakdown:
+          type: array
+          items:
+            $ref: "#/components/schemas/CountBreakdown"
+      required:
+        - totalTracked
+        - activeReferralCount
+        - openFollowUps
+        - warmRelationships
+        - recentReferralCount
+        - closedReferralCount
+        - segmentBreakdown
+        - stageBreakdown
+    CountBreakdown:
+      type: object
+      properties:
+        label:
+          type: string
+        count:
+          type: number
+        tone:
+          type: string
+      required:
+        - label
+        - count
+        - tone
+    RelationshipActivity:
+      type: object
+      properties:
+        id:
+          type: string
+        agentId:
+          type: string
+        agentName:
+          type: string
+        event:
+          type: string
+        detail:
+          type: string
+        date:
+          type: string
+        tone:
+          type: string
+          enum: [urgent, positive, neutral, negative]
+      required:
+        - id
+        - agentId
+        - agentName
+        - event
+        - detail
+        - date
+        - tone
 
