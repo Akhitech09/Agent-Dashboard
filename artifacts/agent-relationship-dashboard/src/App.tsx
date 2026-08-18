@@ -99,7 +99,7 @@ function Shell({ children, isDark, onToggleTheme }: { children: ReactNode; isDar
         </nav>
         <div className="sidebar-bottom">
           <div className="coverage-note"><ShieldCheck size={16} /><div><strong>Private workspace</strong><span>Built for thoughtful follow-through</span></div></div>
-          <div className="profile-row"><div className="avatar avatar-gold">JM</div><div className="profile-meta"><strong>Jordan M.</strong><span>Relationship manager</span></div><button className="icon-button" aria-label="Open profile menu" data-testid="button-profile-menu"><ChevronDown size={15} /></button></div>
+          <div className="profile-row"><div className="avatar avatar-gold">AK</div><div className="profile-meta"><strong>Akhi</strong><span>Relationship manager</span></div><button className="icon-button" aria-label="Open profile menu" data-testid="button-profile-menu"><ChevronDown size={15} /></button></div>
         </div>
       </aside>
       {mobileOpen && <button className="mobile-scrim" onClick={() => setMobileOpen(false)} aria-label="Close navigation overlay" data-testid="button-close-navigation-overlay" />}
@@ -219,7 +219,7 @@ function Dashboard() {
   const lastUpdated = Math.max(summaryQuery.dataUpdatedAt || 0, agentsQuery.dataUpdatedAt || 0, activityQuery.dataUpdatedAt || 0) || undefined;
   const setSelection = (id: string) => setSelectedAgent(agents.find((agent) => agent.id === id) ?? null);
   return <div className="dashboard-page">
-    <PageHeader eyebrow="Tuesday · relationship command center" title="Good morning, Jordan." subtitle="The people and conversations most worth your attention today.">
+     <PageHeader eyebrow="Tuesday · relationship command center" title="Good morning, Akhi." subtitle="The people and conversations most worth your attention today.">
       <DataControls isDark={isDark} onToggleTheme={() => setIsDark((value) => !value)} onRefresh={refresh} isFetching={loading} lastUpdated={lastUpdated} />
     </PageHeader>
     {(summaryQuery.isError || agentsQuery.isError || activityQuery.isError) ? <QueryError onRetry={refresh} /> : <>

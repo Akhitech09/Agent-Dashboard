@@ -1,0 +1,1 @@
+- [Identity-safe product copy](no-invented-identity.md) — never invent user names or profile details when the source data does not provide them.
