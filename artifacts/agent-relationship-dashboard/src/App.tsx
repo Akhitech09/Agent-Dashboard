@@ -119,8 +119,8 @@ function StatusPill({ value, type = "health" }: { value: string; type?: "health"
   return <span className={`status-pill ${type}-${value}`} data-testid={`status-${type}-${value}`}><span className="status-dot" />{humanize(value)}</span>;
 }
 
-function PageHeader({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle: string; children?: ReactNode }) {
-  return <div className="page-header"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="page-subtitle">{subtitle}</p></div>{children && <div className="page-header-actions">{children}</div>}</div>;
+function PageHeader({ eyebrow, title, subtitle, meta, children }: { eyebrow: string; title: string; subtitle: string; meta?: string; children?: ReactNode }) {
+  return <div className="page-header"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="page-subtitle">{subtitle}</p>{meta && <span className="page-source">{meta}</span>}</div>{children && <div className="page-header-actions">{children}</div>}</div>;
 }
 
 function QueryError({ onRetry, message = "The relationship picture could not load." }: { onRetry: () => void; message?: string }) {
@@ -219,7 +219,7 @@ function Dashboard() {
   const lastUpdated = Math.max(summaryQuery.dataUpdatedAt || 0, agentsQuery.dataUpdatedAt || 0, activityQuery.dataUpdatedAt || 0) || undefined;
   const setSelection = (id: string) => setSelectedAgent(agents.find((agent) => agent.id === id) ?? null);
   return <div className="dashboard-page">
-     <PageHeader eyebrow="Tuesday · relationship command center" title="Good morning, Akhi." subtitle="The people and conversations most worth your attention today.">
+     <PageHeader eyebrow="Tuesday · relationship command center" title="Good morning, Akhi." subtitle="The people and conversations most worth your attention today." meta="Review period: Aug 2025 – Aug 2026">
       <DataControls isDark={isDark} onToggleTheme={() => setIsDark((value) => !value)} onRefresh={refresh} isFetching={loading} lastUpdated={lastUpdated} />
     </PageHeader>
     {(summaryQuery.isError || agentsQuery.isError || activityQuery.isError) ? <QueryError onRetry={refresh} /> : <>

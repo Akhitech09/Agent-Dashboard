@@ -496,6 +496,7 @@ body { letter-spacing: -.006em; }
 .eyebrow, .section-kicker { font-size: 9px; letter-spacing: .12em; }
 .page-header h1 { margin-top: 9px; font-family: var(--app-font-sans); font-size: clamp(32px, 3.6vw, 44px); font-weight: 600; letter-spacing: -.035em; line-height: 1.04; }
 .page-subtitle { font-size: 13px; line-height: 1.5; }
+.page-source { display: block; margin-top: 10px; color: hsl(var(--muted-foreground)); font-family: var(--app-font-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
 .control-row { gap: 6px; }
 .split-refresh { height: 34px; border-radius: 5px; box-shadow: none; }
 .refresh-main, .refresh-menu { font-size: 11px; }
